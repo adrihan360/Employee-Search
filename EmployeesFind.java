@@ -18,20 +18,20 @@ S = Sales
 
 public class EmployeesFind {
 
-    public static void viewEmployees(String[] employees){
+    public static void viewEmployees(List<Employee> employees){
 
     }
 
-    public static void editEmployees(String[] employees){
-
+    public static void editEmployees(List<Employee> employees){
+        System.out.println("How would you like to edit?\n[1] Add employee\n[2]Remove Employee\n[3]Replace Employee");
     }
 
-    public static void findEmployees(String[] employees){
+    public static void findEmployees(List<Employee> employees){
         System.out.println("How would you live to search for employees? " +
                 "\n[1] By Name\n[2]By ID\n[3]By Department");
     }
 
-    public static String[] load() {
+    public static List<Employee> load() {
         List<String> data = new ArrayList();
         try {
             File f = new File("Employees.txt");
@@ -44,13 +44,20 @@ public class EmployeesFind {
         }
         String[] employees = new String[data.size()];
         data.toArray(employees);
-        return employees;
+
+        List<Employee> Employees = new ArrayList<>();
+        for(String curr : data){
+            String[] temp = curr.split(",");
+            Employees.add(new Employee(temp[0], temp[1],temp[2]));
+        }
+        return Employees;
     }
 
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Employee database archive");
-        String[] employees = load();
+        List<Employee> employees = new ArrayList<>();
+
 
         System.out.println("Choose an option:");
         System.out.println("[1] Find employee\n[2] Edit Employees.txt"); //user chooses option
